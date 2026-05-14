@@ -1,18 +1,24 @@
-# React + Vite
+# Web para transmisión
 
-Aplicación web para transmisión de contenido junto a la plataforma Twitch.
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web alterna para transmisiones en vivo ligadas a Twitch.
 
-Currently, two official plugins are available:
+## Requisitos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Instalar Node, el cual ya viene con React.
 
-## React Compiler
+## Funcionamiento
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Crear archivo .env
 
-## Expanding the ESLint configuration
+Aquí van las credenciales para consumir la API de Twitch (modo desarrollador), los cuales son un ClientID y un Token access, aparte del nombre del canal que usará la plataforma.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-=======
+Hay un ejemplo para la creación del mismo.
+
+### Funcionamiento en local
+
+Asegurarse de estar en la dirección del poryecto y colocar:
+```
+npm run dev
+```
+
+Acceder al enlace localhost que proporcione la consola.

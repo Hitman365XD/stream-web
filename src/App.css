@@ -3,7 +3,7 @@
   color: white;
   height: 100vh;
   display: flex;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .stream-section {
@@ -12,23 +12,59 @@
   flex-direction: column;
 }
 
+.offline-container {
+  color: gray;
+  font-size: 40px;
+  font-weight: bold;
+  height: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
 .video-container {
   flex: 1;
   background: #222;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 30px;
+  font-size: 20px;
 }
 
 .bottom-bar {
-  height: 50px;
+  height: 60px;
   background: #18181b;
   border-top: 1px solid #333;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+}
+
+.channel-container {
+  background: #3e2dd1;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: bold;
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  text-decoration: none;
+  color: white;
+}
+
+.channel-container:hover {
+  opacity: 0.8;
+}
+
+.profile-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #9147ff;
 }
 
 .title-container {

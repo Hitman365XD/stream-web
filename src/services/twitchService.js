@@ -1,31 +1,38 @@
-import.meta.env
+import.meta.env;
 
 const channel = import.meta.env.VITE_TWITCH_CHANNEL;
 const clientId = import.meta.env.VITE_TWITCH_CLIENT_ID;
 const token = import.meta.env.VITE_TWITCH_TOKEN;
 
 export const getStreamData = async () => {
-  const response = await fetch(
-    `https://api.twitch.tv/helix/streams?user_login=${channel}`,
-    {
-      headers: {
-        "Client-ID": clientId,
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  );
+  const headers = {
+    "Client-ID": clientId,
+    Authorization: `Bearer ${token}`,
+  };
 
-  const data = await response.json();
+  try {
+    // Datos del stream
+    const streamRes = await fetch(
+      `https://api.twitch.tv/helix/streams?user_login=${channel}`,
+      { headers },
+    );
+    const streamData = await streamRes.json();
 
-  if (data.data.length > 0) {
+    // Datos del streamer
+    const userRes = await fetch(
+      `https://api.twitch.tv/helix/users?login=${channel}`,
+      { headers },
+    );
+    const userData = await userRes.json();
+
     return {
-        viewers: data.data[0].viewer_count,
-        title: data.data[0].title,
-    };
-  } else {
-    return {
-      viewers: 0,
-      title: "Offline",
-    };
+      streamer: userData.data[0].display_name,
+      profileImage: userData.data[0].profile_image_url,
+      viewers: streamData.data[0]?.viewer_count || 0,
+      title: streamData.data[0]?.title || "OFFLINE",
+      isLive: streamData.data.length > 0 ? true : false,
+    }
+  } catch (error) {
+    console.error(error);
   }
 };
