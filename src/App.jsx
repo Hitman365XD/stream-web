@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { getStreamData } from "./services/twitchService";
 import VideoPlayer from "./components/VideoPlayer";
 import { FaUser } from "react-icons/fa";
 import "./App.css";
@@ -9,21 +8,22 @@ function App() {
   const [title, setTitle] = useState("");
   const [streamer, setStreamer] = useState("");
   const [profileImage, setProfileImage] = useState("");
-  const [isLive, setIsLive] = useState();
-
-  // Credenciales
-  const channel = import.meta.env.VITE_TWITCH_CHANNEL;
+  const [isLive, setIsLive] = useState();  
+  const [channel, setChannel] = useState("");
 
   useEffect(() => {
     const updateStream = async () => {
-      const streamData = await getStreamData();
+      // Credenciales
+      const response = await fetch("http://localhost:3000/stream-data");
+      const streamData = await response.json();
 
       // Datos multimedia de transmisión
+      setChannel(streamData.channel)
       setIsLive(streamData.isLive);
       setViewers(streamData.viewers);
       setTitle(streamData.title);
       setStreamer(streamData.streamer);
-      setProfileImage(streamData.profileImage);      
+      setProfileImage(streamData.profileImage);
     };
 
     // Refresh de viewers cada 10 segundos
@@ -38,9 +38,7 @@ function App() {
           {isLive ? (
             <VideoPlayer />
           ) : (
-            <div className="offline-container">
-              No disponible
-            </div>
+            <div className="offline-container">No disponible</div>
           )}
           <div className="bottom-bar">
             <a

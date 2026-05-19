@@ -8,11 +8,9 @@ Instalar Node, el cual ya viene con React.
 
 ## Funcionamiento
 
-### Crear archivo .env
+### Lectura de API twitch para credenciales
 
-Aquí van las credenciales para consumir la API de Twitch (modo desarrollador), los cuales son un ClientID y un Token access, aparte del nombre del canal que usará la plataforma.
-
-Hay un ejemplo para la creación del mismo.
+Aquí es ejecutar un servicio de vídeo, el cual contiene información del canal emisor para mostrar su contenido en diferido a su transmisión.
 
 ### Funcionamiento en local
 
