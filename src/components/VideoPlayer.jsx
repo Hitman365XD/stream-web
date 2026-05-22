@@ -4,12 +4,42 @@ import "./VideoPlayer.css";
 
 function VideoPlayer() {
   const videoRef = useRef(null);
+  const hideTimer = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
+  const [showControls, setShowControls] = useState(true);
 
   useEffect(() => {
     const video = videoRef.current;
-    const streamUrl = "http://localhost/hls/test.m3u8"; // Proviene del servicio para vídeo
+    const streamUrl = "http://localhost/hls/test.m3u8";
+
+    const resetHideTimer = () => {
+      setShowControls(true);
+      window.clearTimeout(hideTimer.current);
+      hideTimer.current = window.setTimeout(() => {
+        setShowControls(false);
+      }, 2500);
+    };
+
+    resetHideTimer();
+
+    return () => {
+      window.clearTimeout(hideTimer.current);
+    };
+  }, []);
+
+  const resetHideTimer = () => {
+    setShowControls(true);
+    window.clearTimeout(hideTimer.current);
+    hideTimer.current = window.setTimeout(() => {
+      setShowControls(false);
+    }, 2500);
+  };
+
+  useEffect(() => {
+    // Proviene del servicio para vídeo
+    const video = videoRef.current;
+    const streamUrl = "http://localhost/hls/test.m3u8";
 
     if (!video) return;
 
@@ -88,10 +118,10 @@ function VideoPlayer() {
 
   // Pantalla completa y reversa
   const handleFullScreen = () => {
-    const container = document.querySelector(".video-container");
+    const container = document.querySelector(".video-player-container");
 
     if (!document.fullscreenElement) {
-      if (container.requestFullscreen) {
+      if (container?.requestFullscreen) {
         container.requestFullscreen();
       }
     } else {
@@ -112,21 +142,21 @@ function VideoPlayer() {
   };
 
   return (
-    <div className="video-container">
+    <div
+      className="video-player-container"
+      onMouseMove={resetHideTimer}
+      onMouseEnter={resetHideTimer}
+      onMouseLeave={() => setShowControls(false)}
+    >
       <video
         ref={videoRef}
         autoPlay
         muted
         playsInline
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          borderRadius: "10px",
-        }}
+        className="player-video"
       />
 
-      <div className="player-controls">
+      <div className={`player-controls ${showControls ? "visible" : "hidden"}`}>
         <div className="left-controls">
           <button onClick={togglePlay}>{isPlaying ? "⏸" : "▶"}</button>
           <div className="live-badge" onClick={goToLive}>

@@ -8,8 +8,9 @@ function App() {
   const [title, setTitle] = useState("");
   const [streamer, setStreamer] = useState("");
   const [profileImage, setProfileImage] = useState("");
-  const [isLive, setIsLive] = useState();  
+  const [isLive, setIsLive] = useState();
   const [channel, setChannel] = useState("");
+  const [showChat, setShowchat] = useState(true);
 
   useEffect(() => {
     const updateStream = async () => {
@@ -18,13 +19,15 @@ function App() {
       const streamData = await response.json();
 
       // Datos multimedia de transmisión
-      setChannel(streamData.channel)
+      setChannel(streamData.channel);
       setIsLive(streamData.isLive);
       setViewers(streamData.viewers);
       setTitle(streamData.title);
       setStreamer(streamData.streamer);
       setProfileImage(streamData.profileImage);
     };
+
+    updateStream();
 
     // Refresh de viewers cada 10 segundos
     const interval = setInterval(updateStream, 10000);
@@ -52,16 +55,28 @@ function App() {
                 alt={streamer}
                 className="profile-image"
               />
-              <span className="streamer-name">{streamer}</span>
+              <span className="streamer-name desktop-only">{streamer}</span>
+              <span className="channel-name mobile-only">{channel}</span>
             </a>
             <div className="title-container">{title}</div>
-            <div className="views-container">
-              <FaUser /> {viewers}
+            <div className="right-controls">
+              <div className="views-container">
+                <span className="views-icon">
+                  <FaUser />
+                </span>
+                <span className="views-value">{viewers}</span>
+              </div>
+              <button
+                className={`chat-toggle ${showChat ? "active" : ""}`}
+                onClick={() => setShowchat(!showChat)}
+              >
+                💬
+              </button>
             </div>
           </div>
         </div>
 
-        <div className="chat-container">
+        <div className={`chat-container ${showChat ? "" : "hidden"}`}>
           <iframe
             src={`https://www.twitch.tv/embed/${channel}/chat?parent=localhost&darkpopout`}
             className="frame-container"
