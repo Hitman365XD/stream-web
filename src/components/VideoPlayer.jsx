@@ -46,19 +46,20 @@ function VideoPlayer({ title }) {
 
     if (Hls.isSupported()) {
       const hls = new Hls({
-        lowLatencyMode: true,
-        liveSyncDurationCount: 1,
-        liveMaxLatencyDurationCount: 3,
-        maxBufferLength: 2,
-        maxMaxBufferLength: 4,
+        lowLatencyMode: false,
+        liveSyncDurationCount: 2,
+        liveMaxLatencyDurationCount: 5,
+        maxBufferLength: 6,
+        maxMaxBufferLength: 10,
         backBufferLength: 0,
-        maxFragLookUpTolerance: 0.1,
+        maxFragLookUpTolerance: 0.2,
         enableWorker: true,
         capLevelToPlayerSize: true,
         autoStartLoad: true,
-        fragLoadingTimeOut: 10000,
-        manifestLoadingTimeOut: 5000,
-        nudgeOffset: 0.05,
+        fragLoadingTimeOut: 15000,
+        manifestLoadingTimeOut: 10000,
+        levelLoadingTimeOut: 10000,
+        nudgeOffset: 0.1,
       });
 
       const handleManifestParsed = () => {
@@ -97,6 +98,20 @@ function VideoPlayer({ title }) {
           const liveEdge = buffered.end(buffered.length - 1);
 
           if (liveEdge - video.currentTime > 4) {
+            video.currentTime = liveEdge - 1;
+          }
+        }
+      });
+
+      hls.on(Hls.Events.FRAG_BUFFERED, () => {
+        const video = videoRef.current;
+        if (!video) return;
+        const buffered = video.buffered;
+
+        if (buffered.length > 0) {
+          const liveEdge = buffered.end(buffered.length - 1);
+
+          if (liveEdge - video.currentTime > 5) {
             video.currentTime = liveEdge - 1;
           }
         }
@@ -198,7 +213,7 @@ function VideoPlayer({ title }) {
       <video
         ref={videoRef}
         autoPlay
-        muted={false}
+        muted
         playsInline
         className="player-video"
       />
