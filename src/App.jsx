@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     const updateStream = async () => {
       // Credenciales
-      const response = await fetch("http://localhost:3000/stream-data");
+      const response = await fetch("http://localhost:3000/stream-data");      
       const streamData = await response.json();
 
       // Datos multimedia de transmisión
@@ -34,12 +34,14 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+  const twitchParent = typeof window !== "undefined" ? window.location.hostname : "localhost";
+
   return (
     <>
       <div className="app-container">
         <div className="stream-section">
           {isLive ? (
-            <VideoPlayer />
+            <VideoPlayer title={title} />
           ) : (
             <div className="offline-container">No disponible</div>
           )}
@@ -78,7 +80,7 @@ function App() {
 
         <div className={`chat-container ${showChat ? "" : "hidden"}`}>
           <iframe
-            src={`https://www.twitch.tv/embed/${channel}/chat?parent=localhost&darkpopout`}
+            src={`https://www.twitch.tv/embed/${channel}/chat?parent=${twitchParent}&darkpopout`}
             className="frame-container"
           ></iframe>
         </div>
