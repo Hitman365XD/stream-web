@@ -15,7 +15,8 @@ function App() {
   useEffect(() => {
     const updateStream = async () => {
       // Credenciales
-      const response = await fetch("http://localhost:3000/stream-data");      
+      // const response = await fetch("http://localhost:3000/stream-data");
+      const response = await fetch("https://span-mart-trance-auckland.trycloudflare.com/stream-data");
       const streamData = await response.json();
 
       // Datos multimedia de transmisión
@@ -34,7 +35,8 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  const twitchParent = typeof window !== "undefined" ? window.location.hostname : "localhost";
+  // const twitchParent = typeof window !== "undefined" ? window.location.hostname : "localhost";
+  const twitchParent = typeof window !== "undefined" ? window.location.hostname : "musty-negligent-chastity.ngrok-free.dev";
 
   return (
     <>
