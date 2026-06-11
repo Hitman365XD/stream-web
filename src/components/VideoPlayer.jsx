@@ -2,31 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import Hls from "hls.js";
 import "./VideoPlayer.css";
 
-function VideoPlayer() {
+function VideoPlayer({ title }) {
   const videoRef = useRef(null);
   const hideTimer = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const [showControls, setShowControls] = useState(true);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    const streamUrl = "http://localhost/hls/test.m3u8";
-
-    const resetHideTimer = () => {
-      setShowControls(true);
-      window.clearTimeout(hideTimer.current);
-      hideTimer.current = window.setTimeout(() => {
-        setShowControls(false);
-      }, 2500);
-    };
-
-    resetHideTimer();
-
-    return () => {
-      window.clearTimeout(hideTimer.current);
-    };
-  }, []);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   const resetHideTimer = () => {
     setShowControls(true);
@@ -35,6 +16,14 @@ function VideoPlayer() {
       setShowControls(false);
     }, 2500);
   };
+
+  useEffect(() => {
+    resetHideTimer();
+
+    return () => {
+      window.clearTimeout(hideTimer.current);
+    };
+  }, []);
 
   useEffect(() => {
     // Proviene del servicio para vídeo
@@ -88,25 +77,15 @@ function VideoPlayer() {
     }
   }, []);
 
-  // Play y pause de vídeo
-  const togglePlay = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (video.paused) {
-      video.play();
-      setIsPlaying(true);
-    } else {
-      video.pause();
-      setIsPlaying(false);
-    }
-  };
-
   // Barra de sonido
   const handleVolume = (e) => {
     const video = videoRef.current;
     if (!video) return;
-    video.muted = false;
-    video.volume = e.target.value;
+
+    const value = Number(e.target.value);
+    video.volume = value;
+    video.muted = value === 0;
+    setIsMuted(video.muted);
   };
 
   const toggleMute = () => {
@@ -123,11 +102,24 @@ function VideoPlayer() {
     if (!document.fullscreenElement) {
       if (container?.requestFullscreen) {
         container.requestFullscreen();
+        setIsFullScreen(true);
       }
     } else {
       document.exitFullscreen();
+      setIsFullScreen(false);
     }
   };
+
+  useEffect(() => {
+    const handleFullScreenChange = () => {
+      setIsFullScreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener("fullscreenchange", handleFullScreenChange);
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullScreenChange);
+    };
+  }, []);
 
   // Actualizar transmisión en vivo
   const goToLive = () => {
@@ -156,9 +148,14 @@ function VideoPlayer() {
         className="player-video"
       />
 
+      {isFullScreen && title && (
+        <div className={`stream-title ${showControls ? "visible" : "hidden"}`}>
+          {title}
+        </div>
+      )}
+
       <div className={`player-controls ${showControls ? "visible" : "hidden"}`}>
         <div className="left-controls">
-          <button onClick={togglePlay}>{isPlaying ? "⏸" : "▶"}</button>
           <div className="live-badge" onClick={goToLive}>
             LIVE
           </div>

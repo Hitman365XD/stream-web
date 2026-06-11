@@ -34,12 +34,13 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+  const twitchParent = typeof window !== "undefined" ? window.location.hostname : "localhost";
+
   return (
-    <>
       <div className="app-container">
         <div className="stream-section">
           {isLive ? (
-            <VideoPlayer />
+            <VideoPlayer title={title} />
           ) : (
             <div className="offline-container">No disponible</div>
           )}
@@ -69,6 +70,8 @@ function App() {
               <button
                 className={`chat-toggle ${showChat ? "active" : ""}`}
                 onClick={() => setShowchat(!showChat)}
+                title={showChat ? "Ocultar chat" : "Mostrar chat"}
+                aria-label={showChat ? "Ocultar chat" : "Mostrar chat"}
               >
                 💬
               </button>
@@ -78,12 +81,11 @@ function App() {
 
         <div className={`chat-container ${showChat ? "" : "hidden"}`}>
           <iframe
-            src={`https://www.twitch.tv/embed/${channel}/chat?parent=localhost&darkpopout`}
+            src={`https://www.twitch.tv/embed/${channel}/chat?parent=${twitchParent}&darkpopout`}
             className="frame-container"
           ></iframe>
         </div>
       </div>
-    </>
   );
 }
 
