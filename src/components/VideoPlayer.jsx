@@ -6,7 +6,9 @@ import "./VideoPlayer.css";
 function VideoPlayer({ title }) {
   const videoRef = useRef(null);
   const hideTimer = useRef(null);
+  const lastVolumeRef = useRef(0.5);
   const [isMuted, setIsMuted] = useState(true);
+  const [volume, setVolume] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [showControls, setShowControls] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -55,7 +57,7 @@ function VideoPlayer({ title }) {
 
     if (Hls.isSupported()) {
       const hls = new Hls({
-        lowLatencyMode: true
+        lowLatencyMode: true,
       });
       hls.loadSource(streamUrl);
       hls.attachMedia(video);
@@ -113,14 +115,33 @@ function VideoPlayer({ title }) {
     const value = Number(e.target.value);
     video.volume = value;
     video.muted = value === 0;
+    setVolume(value);
     setIsMuted(video.muted);
+
+    if (value > 0) {
+      lastVolumeRef.current = value;
+    }
   };
 
   const toggleMute = () => {
     const video = videoRef.current;
     if (!video) return;
-    video.muted = !video.muted;
-    setIsMuted(video.muted);
+
+    if (video.muted) {
+      const restoredVolume =
+        lastVolumeRef.current > 0 ? lastVolumeRef.current : 0.5;
+      video.volume = restoredVolume;
+      video.muted = false;
+      setVolume(restoredVolume);
+      setIsMuted(false);
+    } else {
+      lastVolumeRef.current =
+        video.volume > 0 ? video.volume : lastVolumeRef.current;
+      video.volume = 0;
+      video.muted = true;
+      setVolume(0);
+      setIsMuted(true);
+    }
   };
 
   // Pantalla completa y reversa
@@ -184,23 +205,27 @@ function VideoPlayer({ title }) {
 
       <div className={`player-controls ${showControls ? "visible" : "hidden"}`}>
         <div className="left-controls">
-          <button onClick={togglePlay}>{isPlaying ? "⏸" : "▶"}</button>
+          <button onClick={togglePlay} title={isPlaying ? "Pausar" : "Reproducir"}>{isPlaying ? "⏸" : "▶"}</button>
           <div className="live-badge" onClick={goToLive}>
             LIVE
           </div>
         </div>
 
         <div className="right-controls">
-          <button onClick={toggleMute}>{isMuted ? "🔇" : "🔊"}</button>
+          <button onClick={toggleMute} title="Volumen">
+            {isMuted ? "🔇" : "🔊"}
+          </button>
           <input
             type="range"
             min="0"
             max="1"
             step="0.1"
-            defaultValue="1"
+            value={volume}
             onChange={handleVolume}
           />
-          <button onClick={handleFullScreen}>⛶</button>
+          <button onClick={handleFullScreen} title="Pantalla completa">
+            ⛶
+          </button>
         </div>
       </div>
     </div>
