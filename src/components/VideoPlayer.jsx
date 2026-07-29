@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import config from "../config";
 import Hls from "hls.js";
 import "./VideoPlayer.css";
 
@@ -6,8 +7,28 @@ function VideoPlayer({ title }) {
   const videoRef = useRef(null);
   const hideTimer = useRef(null);
   const [isMuted, setIsMuted] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [showControls, setShowControls] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    const streamUrl = config.streamUrl;
+
+    const resetHideTimer = () => {
+      setShowControls(true);
+      window.clearTimeout(hideTimer.current);
+      hideTimer.current = window.setTimeout(() => {
+        setShowControls(false);
+      }, 2500);
+    };
+
+    resetHideTimer();
+
+    return () => {
+      window.clearTimeout(hideTimer.current);
+    };
+  }, []);
 
   const resetHideTimer = () => {
     setShowControls(true);
@@ -28,19 +49,13 @@ function VideoPlayer({ title }) {
   useEffect(() => {
     // Proviene del servicio para vídeo
     const video = videoRef.current;
-    const streamUrl = "http://localhost/hls/test.m3u8";
+    const streamUrl = config.streamUrl;
 
     if (!video) return;
 
     if (Hls.isSupported()) {
       const hls = new Hls({
-        liveSyncDurationCount: 5,
-        maxBufferLength: 6,
-        maxMaxBufferLength: 6,
-        backBufferLength: 10,
-        liveDurationInfinity: true,
-        enableWorker: false,
-        lowLatencyMode: true,
+        lowLatencyMode: true
       });
       hls.loadSource(streamUrl);
       hls.attachMedia(video);
@@ -76,6 +91,19 @@ function VideoPlayer({ title }) {
       });
     }
   }, []);
+
+  // Play y pause de vídeo
+  const togglePlay = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.paused) {
+      video.play();
+      setIsPlaying(true);
+    } else {
+      video.pause();
+      setIsPlaying(false);
+    }
+  };
 
   // Barra de sonido
   const handleVolume = (e) => {
@@ -156,6 +184,7 @@ function VideoPlayer({ title }) {
 
       <div className={`player-controls ${showControls ? "visible" : "hidden"}`}>
         <div className="left-controls">
+          <button onClick={togglePlay}>{isPlaying ? "⏸" : "▶"}</button>
           <div className="live-badge" onClick={goToLive}>
             LIVE
           </div>
