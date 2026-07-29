@@ -9,28 +9,9 @@ function VideoPlayer({ title }) {
   const lastVolumeRef = useRef(0.5);
   const [isMuted, setIsMuted] = useState(true);
   const [volume, setVolume] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    const streamUrl = config.streamUrl;
-
-    const resetHideTimer = () => {
-      setShowControls(true);
-      window.clearTimeout(hideTimer.current);
-      hideTimer.current = window.setTimeout(() => {
-        setShowControls(false);
-      }, 2500);
-    };
-
-    resetHideTimer();
-
-    return () => {
-      window.clearTimeout(hideTimer.current);
-    };
-  }, []);
 
   const resetHideTimer = () => {
     setShowControls(true);
@@ -49,6 +30,30 @@ function VideoPlayer({ title }) {
   }, []);
 
   useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const updatePlayState = () => {
+      setIsPlaying(!video.paused && !video.ended);
+    };
+
+    updatePlayState();
+    video.addEventListener("play", updatePlayState);
+    video.addEventListener("pause", updatePlayState);
+    video.addEventListener("ended", updatePlayState);
+    video.addEventListener("enterpictureinpicture", updatePlayState);
+    video.addEventListener("leavepictureinpicture", updatePlayState);
+
+    return () => {
+      video.removeEventListener("play", updatePlayState);
+      video.removeEventListener("pause", updatePlayState);
+      video.removeEventListener("ended", updatePlayState);
+      video.removeEventListener("enterpictureinpicture", updatePlayState);
+      video.removeEventListener("leavepictureinpicture", updatePlayState);
+    };
+  }, []);
+
+  useEffect(() => {
     // Proviene del servicio para vídeo
     const video = videoRef.current;
     const streamUrl = config.streamUrl;
@@ -58,6 +63,13 @@ function VideoPlayer({ title }) {
     if (Hls.isSupported()) {
       const hls = new Hls({
         lowLatencyMode: true,
+        enableWorker: true,
+        liveSyncDurationCount: 3,
+        liveMaxLatencyDurationCount: 5,
+        maxBufferLength: 30,
+        maxMaxBufferLength: 60,
+        backBufferLength: 5,
+        maxFragLookUpTolerance: 0.25,
       });
       hls.loadSource(streamUrl);
       hls.attachMedia(video);
