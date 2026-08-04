@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import config from "./src/config/config.js";
+import config from "./src/config";
 import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
