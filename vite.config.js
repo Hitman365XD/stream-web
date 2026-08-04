@@ -8,6 +8,6 @@ export default defineConfig({
 
   server: {
     host: '',
-    allowedHosts: [config.twitchParent]
+    allowedHosts: [config.twitchParent],
   }
 })
