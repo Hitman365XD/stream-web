@@ -9,7 +9,7 @@ export default ({ mode }) => {
     plugins: [react()],
 
     server: {
-      host: "",
+      host: true,
       allowedHosts: [env.VITE_TWITCH_PARENT],
     },
   });
