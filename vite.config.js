@@ -1,13 +1,16 @@
-import { defineConfig } from 'vite'
-import config from "./src/config";
-import react from '@vitejs/plugin-react'
+import { defineConfig, loadEnv } from "vite";
+import react from "@vitejs/plugin-react";
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [react()],
+export default ({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), "");
 
-  server: {
-    host: '',
-    allowedHosts: [config.twitchParent],
-  }
-})
+  return defineConfig({
+    plugins: [react()],
+
+    server: {
+      host: "",
+      allowedHosts: [env.VITE_TWITCH_PARENT],
+    },
+  });
+};
