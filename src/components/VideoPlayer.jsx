@@ -232,9 +232,10 @@ function VideoPlayer({ title }) {
             min="0"
             max="1"
             step="0.1"
-            value={volume}
+            // value={volume}
             onChange={handleVolume}
           />
+          {/* Botón de cambiar calidad de vídeo */}
           <button onClick={handleFullScreen} title="Pantalla completa">
             ⛶
           </button>
