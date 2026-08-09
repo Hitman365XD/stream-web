@@ -35,6 +35,90 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const setVh = () => {
+      const height = window.visualViewport?.height || window.innerHeight;
+      const vh = height * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
+
+    setVh();
+    window.addEventListener("resize", setVh);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", setVh);
+      window.visualViewport.addEventListener("scroll", setVh);
+    }
+
+    return () => {
+      window.removeEventListener("resize", setVh);
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener("resize", setVh);
+        window.visualViewport.removeEventListener("scroll", setVh);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (streamer) {
+      document.title = `${streamer}`;
+    } else {
+      document.title = "Stream-web";
+    }
+  }, [streamer]);
+
+  useEffect(() => {
+    if (!profileImage) return;
+
+    const updateFavicon = (href) => {
+      let icon = document.querySelector("link[rel~='icon']");
+      if (!icon) {
+        icon = document.createElement("link");
+        icon.rel = "icon";
+        document.head.appendChild(icon);
+      }
+      icon.href = href;
+    };
+
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = profileImage;
+
+    img.onload = () => {
+      const size = 64;
+      const canvas = document.createElement("canvas");
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        updateFavicon(profileImage);
+        return;
+      }
+
+      ctx.clearRect(0, 0, size, size);
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(size / 2, size / 2, size / 2 - 1, 0, Math.PI * 2);
+      ctx.clip();
+      ctx.drawImage(img, 0, 0, size, size);
+      ctx.restore();
+
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = "#fff";
+      ctx.beginPath();
+      ctx.arc(size / 2, size / 2, size / 2 - 3, 0, Math.PI * 2);
+      ctx.stroke();
+
+      updateFavicon(canvas.toDataURL("image/png"));
+    };
+
+    img.onerror = () => updateFavicon(profileImage);
+
+    return () => {
+      img.onload = null;
+      img.onerror = null;
+    };
+  }, [profileImage]);
+
   const twitchParent = typeof window !== "undefined" ? window.location.hostname : config.twitchParent;
 
   return (
