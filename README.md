@@ -26,7 +26,7 @@ Acceder al enlace localhost que proporcione la consola.
 
 ## Despliegue público
 
-Puede hacer uso de Ngrok para poner la web pública a modo de desarrollo (se debe modificar `vite.config.js`, agregar en `allowedHosts` el dominio que se otorgue). Una vez hehco lo anterior, puede ejecutar:
+Puede hacer uso de Ngrok para poner la web pública a modo de desarrollo (se debe modificar `vite.config.js`, agregar en `allowedHosts` el dominio que se otorgue). Una vez hecho lo anterior, puede ejecutar:
 ```
 npm run dev --host
 ```
@@ -36,3 +36,5 @@ ngrok http 5173
 ```
 
 Acceder al enlace que se muestre en la terminal y otros usuarios podrán ver la web.
+
+**<u>Nota</u>:** Para acceder al chat de Twitch, se debe desactivar las cookies de terceros en su navegador correspondiente (PC y móvil), caso contrario no permitirá el log in.
