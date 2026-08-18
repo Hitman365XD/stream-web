@@ -125,7 +125,7 @@ function App() {
       : config.twitchParent;
 
   return (
-    <div className="app-container">
+    <div className={`app-container ${showChat ? "" : "chat-hidden"}`}>
       <div className="stream-section">
         {isLive ? (
           <VideoPlayer title={title} />
@@ -166,7 +166,10 @@ function App() {
             title={showChat ? "Ocultar chat" : "Mostrar chat"}
             aria-label={showChat ? "Ocultar chat" : "Mostrar chat"}
           >
-            💬
+            <span className="chat-toggle-track">
+              <span className="chat-toggle-thumb" />
+            </span>
+            <span className="chat-toggle-label">Chat</span>
           </button>
         </div>
       </div>
