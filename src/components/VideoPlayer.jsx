@@ -217,7 +217,12 @@ function VideoPlayer({ title }) {
 
       <div className={`player-controls ${showControls ? "visible" : "hidden"}`}>
         <div className="left-controls">
-          <button onClick={togglePlay} title={isPlaying ? "Pausar" : "Reproducir"}>{isPlaying ? "⏸" : "▶"}</button>
+          <button
+            onClick={togglePlay}
+            title={isPlaying ? "Pausar" : "Reproducir"}
+          >
+            {isPlaying ? "⏸" : "▶"}
+          </button>
           <div className="live-badge" onClick={goToLive}>
             LIVE
           </div>
@@ -232,7 +237,7 @@ function VideoPlayer({ title }) {
             min="0"
             max="1"
             step="0.1"
-            // value={volume}
+            value={volume}
             onChange={handleVolume}
           />
           {/* Botón de cambiar calidad de vídeo */}
