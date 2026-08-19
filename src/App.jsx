@@ -163,8 +163,8 @@ function App() {
           <button
             className={`chat-toggle ${showChat ? "active" : ""}`}
             onClick={() => setShowchat(!showChat)}
-            title={showChat ? "Ocultar chat" : "Mostrar chat"}
-            aria-label={showChat ? "Ocultar chat" : "Mostrar chat"}
+            title={showChat ? "Ocultar" : "Mostrar"}
+            aria-label={showChat ? "Ocultar" : "Mostrar"}
           >
             <span className="chat-toggle-track">
               <span className="chat-toggle-thumb" />
