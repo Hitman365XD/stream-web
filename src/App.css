@@ -139,6 +139,10 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
+.channel-options-backdrop {
+  position: static;
+}
+
 .channel-options a,
 .channel-options button {
   width: 100%;
@@ -173,9 +177,28 @@
 }
 
 .patreon-toggle::after {
-  content: ">";
+  content: "";
   position: absolute;
-  right: 10px;
+  top: 50%;
+  right: 12px;
+  width: 6px;
+  height: 6px;
+  margin-top: -4px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(-45deg);
+}
+
+.patreon-toggle[aria-expanded="true"]::after {
+  margin-top: -5px;
+  transform: rotate(45deg);
+}
+
+@media (min-width: 769px) {
+  .patreon-toggle[aria-expanded="true"]::after {
+    margin-top: -4px;
+    transform: rotate(-45deg);
+  }
 }
 
 .patreon-submenu {
@@ -331,6 +354,49 @@
 }
 
 @media (max-width: 768px) {
+  .channel-options-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0, 0, 0, 0.58);
+  }
+
+  .channel-options {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    width: min(100%, 280px);
+    min-width: 0;
+    max-height: calc(100svh - 48px);
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  .patreon-option:hover > .patreon-submenu {
+    display: none;
+  }
+
+  .patreon-option:focus-within > .patreon-submenu,
+  .patreon-option:hover > .patreon-submenu {
+    display: none;
+  }
+
+  .patreon-option:has(.patreon-toggle[aria-expanded="true"]) > .patreon-submenu {
+    display: block;
+    position: relative;
+    left: auto;
+    top: auto;
+    margin: 0 0 4px 16px;
+    padding: 0 0 0 8px;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
   .app-container {
     display: flex;
     flex-direction: column;
