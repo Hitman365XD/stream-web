@@ -150,7 +150,7 @@ function App() {
         >
           <img src={profileImage} alt={streamer} className="profile-image" />
           <span className="streamer-name desktop-only">{streamer}</span>
-          <span className="channel-name mobile-only">{channel}</span>
+          <span className="channel-name mobile-only">{streamer}</span>
         </a>
         <div className="title-container">{title}</div>
         <div className="right-controls">
