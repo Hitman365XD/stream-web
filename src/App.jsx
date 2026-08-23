@@ -11,6 +11,8 @@ import {
   FaEye,
   FaGift,
   FaWallet,
+  FaDiscord,
+  FaSpotify
 } from "react-icons/fa6";
 import { CiStreamOn } from "react-icons/ci";
 import { SiStreamlabs, SiMyanimelist } from "react-icons/si";
@@ -246,6 +248,14 @@ function App() {
                         <FaXTwitter aria-hidden="true" /> Twitter
                       </a>
                       <a
+                        href="https://open.spotify.com/user/jjduran1997?si=2335ded4500441b4"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        role="menuitem"
+                      >
+                        <FaSpotify aria-hidden="true" /> Spotify
+                      </a>
+                      <a
                         href="https://www.instagram.com/elfuanza"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -316,12 +326,12 @@ function App() {
                     <FaYoutube aria-hidden="true" /> YouTube
                   </a>
                   <a
-                    href="https://www.twitch.tv/products/elfuanza"
+                    href="https://discord.gg/TXdeWMszhp"
                     target="_blank"
                     rel="noopener noreferrer"
                     role="menuitem"
                   >
-                    <FaTwitch aria-hidden="true" /> Suscribirse
+                    <FaDiscord aria-hidden="true" /> Discord
                   </a>
                   <a
                     href="https://streamlabs.com/elfuanza/tip"
@@ -330,6 +340,14 @@ function App() {
                     role="menuitem"
                   >
                     <SiStreamlabs aria-hidden="true" /> Donar (PayPal)
+                  </a>
+                  <a
+                    href="https://www.twitch.tv/products/elfuanza"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    role="menuitem"
+                  >
+                    <FaTwitch aria-hidden="true" /> Suscribirse
                   </a>
                 </div>
               </div>
