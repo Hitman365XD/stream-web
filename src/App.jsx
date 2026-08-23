@@ -12,6 +12,8 @@ import {
   FaGift,
   FaWallet,
 } from "react-icons/fa6";
+import { CiStreamOn } from "react-icons/ci";
+import { SiStreamlabs, SiMyanimelist } from "react-icons/si";
 import config from "./config";
 import "./App.css";
 
@@ -24,12 +26,12 @@ function App() {
   const [channel, setChannel] = useState("");
   const [showChat, setShowchat] = useState(true);
   const [showChannelOptions, setShowChannelOptions] = useState(false);
-  const [showPatreonOptions, setShowPatreonOptions] = useState(false);
+  const [showMenuOptions, setshowMenuOptions] = useState(null);
   const channelOptionsRef = useRef(null);
 
   const closeChannelOptions = () => {
     setShowChannelOptions(false);
-    setShowPatreonOptions(false);
+    setshowMenuOptions(null);
   };
 
   useEffect(() => {
@@ -46,7 +48,6 @@ function App() {
       setStreamer(streamData.streamer);
       setProfileImage(streamData.profileImage);
     };
-
     updateStream();
 
     // Refresh de viewers cada 10 segundos
@@ -210,25 +211,76 @@ function App() {
                   role="menu"
                   onClick={(event) => event.stopPropagation()}
                 >
-                  <a
-                    href="https://www.twitch.tv/products/elfuanza"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    role="menuitem"
+                  <div
+                    className="multioption-option"
+                    onMouseEnter={() => setshowMenuOptions("redes")}
                   >
-                    <FaTwitch aria-hidden="true" /> Suscribirse
-                  </a>
-                  <div className="patreon-option">
                     <button
                       type="button"
-                      className="patreon-toggle"
-                      onClick={() => setShowPatreonOptions(!showPatreonOptions)}
-                      aria-expanded={showPatreonOptions}
+                      className="multioption-toggle"
+                      onClick={() =>
+                        setshowMenuOptions(
+                          showMenuOptions === "redes" ? null : "redes",
+                        )
+                      }
+                      aria-expanded={showMenuOptions === "redes"}
+                      role="menuitem"
+                    >
+                      <CiStreamOn aria-hidden="true" /> Redes
+                    </button>
+                    <div className="multioption-submenu" role="menu">
+                      <a
+                        href="https://www.tiktok.com/@elfuanza"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        role="menuitem"
+                      >
+                        <FaTiktok aria-hidden="true" /> TikTok
+                      </a>
+                      <a
+                        href="https://x.com/elfuanza"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        role="menuitem"
+                      >
+                        <FaXTwitter aria-hidden="true" /> Twitter
+                      </a>
+                      <a
+                        href="https://www.instagram.com/elfuanza"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        role="menuitem"
+                      >
+                        <FaInstagram aria-hidden="true" /> Instagram
+                      </a>
+                      <a
+                        href="https://myanimelist.net/profile/FuanZa"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        role="menuitem"
+                      >
+                        <SiMyanimelist aria-hidden="true" /> MyAnimeList
+                      </a>
+                    </div>
+                  </div>
+                  <div
+                    className="multioption-option"
+                    onMouseEnter={() => setshowMenuOptions("patreon")}
+                  >
+                    <button
+                      type="button"
+                      className="multioption-toggle"
+                      onClick={() =>
+                        setshowMenuOptions(
+                          showMenuOptions === "patreon" ? null : "patreon",
+                        )
+                      }
+                      aria-expanded={showMenuOptions === "patreon"}
                       role="menuitem"
                     >
                       <FaPatreon aria-hidden="true" /> Patreon
                     </button>
-                    <div className="patreon-submenu" role="menu">
+                    <div className="multioption-submenu" role="menu">
                       <a
                         href="https://www.patreon.com/cw/FuanZa"
                         target="_blank"
@@ -264,28 +316,20 @@ function App() {
                     <FaYoutube aria-hidden="true" /> YouTube
                   </a>
                   <a
-                    href="https://www.tiktok.com/@elfuanza"
+                    href="https://www.twitch.tv/products/elfuanza"
                     target="_blank"
                     rel="noopener noreferrer"
                     role="menuitem"
                   >
-                    <FaTiktok aria-hidden="true" /> TikTok
+                    <FaTwitch aria-hidden="true" /> Suscribirse
                   </a>
                   <a
-                    href="https://x.com/elfuanza"
+                    href="https://streamlabs.com/elfuanza/tip"
                     target="_blank"
                     rel="noopener noreferrer"
                     role="menuitem"
                   >
-                    <FaXTwitter aria-hidden="true" /> Twitter
-                  </a>
-                  <a
-                    href="https://www.instagram.com/elfuanza/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    role="menuitem"
-                  >
-                    <FaInstagram aria-hidden="true" /> Instagram
+                    <SiStreamlabs aria-hidden="true" /> Donar (PayPal)
                   </a>
                 </div>
               </div>
