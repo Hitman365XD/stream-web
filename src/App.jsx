@@ -1,7 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import VideoPlayer from "./components/VideoPlayer";
 import { FaEllipsisV, FaUser } from "react-icons/fa";
-import { FaTwitch, FaInstagram, FaXTwitter, FaTiktok, FaYoutube, FaPatreon, FaEye, FaGift, FaWallet } from "react-icons/fa6";
+import {
+  FaTwitch,
+  FaInstagram,
+  FaXTwitter,
+  FaTiktok,
+  FaYoutube,
+  FaPatreon,
+  FaEye,
+  FaGift,
+  FaWallet,
+} from "react-icons/fa6";
 import config from "./config";
 import "./App.css";
 
@@ -77,13 +87,17 @@ function App() {
 
   useEffect(() => {
     const closeMenuWhenClickingOutside = (event) => {
-      if (channelOptionsRef.current && !channelOptionsRef.current.contains(event.target)) {
+      if (
+        channelOptionsRef.current &&
+        !channelOptionsRef.current.contains(event.target)
+      ) {
         closeChannelOptions();
       }
     };
 
     document.addEventListener("mousedown", closeMenuWhenClickingOutside);
-    return () => document.removeEventListener("mousedown", closeMenuWhenClickingOutside);
+    return () =>
+      document.removeEventListener("mousedown", closeMenuWhenClickingOutside);
   }, []);
 
   useEffect(() => {
@@ -150,7 +164,7 @@ function App() {
         {isLive ? (
           <VideoPlayer title={title} />
         ) : (
-          <div className="offline-container">No disponible</div>
+          <div className="offline-container">Offline</div>
         )}
       </div>
 
@@ -187,9 +201,21 @@ function App() {
               <FaEllipsisV aria-hidden="true" />
             </button>
             {showChannelOptions && (
-              <div className="channel-options-backdrop" onClick={closeChannelOptions}>
-                <div className="channel-options" role="menu" onClick={(event) => event.stopPropagation()}>
-                  <a href="https://www.twitch.tv/products/elfuanza" target="_blank" rel="noopener noreferrer" role="menuitem">
+              <div
+                className="channel-options-backdrop"
+                onClick={closeChannelOptions}
+              >
+                <div
+                  className="channel-options"
+                  role="menu"
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  <a
+                    href="https://www.twitch.tv/products/elfuanza"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    role="menuitem"
+                  >
                     <FaTwitch aria-hidden="true" /> Suscribirse
                   </a>
                   <div className="patreon-option">
@@ -203,27 +229,62 @@ function App() {
                       <FaPatreon aria-hidden="true" /> Patreon
                     </button>
                     <div className="patreon-submenu" role="menu">
-                      <a href="https://www.patreon.com/cw/FuanZa" target="_blank" rel="noopener noreferrer" role="menuitem">
+                      <a
+                        href="https://www.patreon.com/cw/FuanZa"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        role="menuitem"
+                      >
                         <FaEye aria-hidden="true" /> Visitar
                       </a>
-                      <a href="https://www.patreon.com/cw/FuanZa/membership" target="_blank" rel="noopener noreferrer" role="menuitem">
+                      <a
+                        href="https://www.patreon.com/cw/FuanZa/membership"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        role="menuitem"
+                      >
                         <FaWallet aria-hidden="true" /> Suscribirse
                       </a>
-                      <a href="https://www.patreon.com/FuanZa/gift" target="_blank" rel="noopener noreferrer" role="menuitem">
+                      <a
+                        href="https://www.patreon.com/FuanZa/gift"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        role="menuitem"
+                      >
                         <FaGift aria-hidden="true" /> Sub de regalo
                       </a>
                     </div>
                   </div>
-                  <a href="https://www.youtube.com/c/FuanZa" target="_blank" rel="noopener noreferrer" role="menuitem">
+                  <a
+                    href="https://www.youtube.com/c/FuanZa"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    role="menuitem"
+                  >
                     <FaYoutube aria-hidden="true" /> YouTube
                   </a>
-                  <a href="https://www.tiktok.com/@elfuanza" target="_blank" rel="noopener noreferrer" role="menuitem">
+                  <a
+                    href="https://www.tiktok.com/@elfuanza"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    role="menuitem"
+                  >
                     <FaTiktok aria-hidden="true" /> TikTok
                   </a>
-                  <a href="https://x.com/elfuanza" target="_blank" rel="noopener noreferrer" role="menuitem">
+                  <a
+                    href="https://x.com/elfuanza"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    role="menuitem"
+                  >
                     <FaXTwitter aria-hidden="true" /> Twitter
                   </a>
-                  <a href="https://www.instagram.com/elfuanza/" target="_blank" rel="noopener noreferrer" role="menuitem">
+                  <a
+                    href="https://www.instagram.com/elfuanza/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    role="menuitem"
+                  >
                     <FaInstagram aria-hidden="true" /> Instagram
                   </a>
                 </div>

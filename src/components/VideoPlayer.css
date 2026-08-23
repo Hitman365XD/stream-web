@@ -36,114 +36,6 @@
   background: #000;
 }
 
-.stream-title {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  color: white;
-  font-size: 1.5rem;
-  font-weight: bold;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0));
-  padding: 12px 16px 18px;
-  border-radius: 0;
-  opacity: 1;
-  visibility: visible;
-  transition:
-    opacity 0.3s ease,
-    visibility 0.3s ease;
-  z-index: 10;
-  word-wrap: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.stream-title.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.stream-title.visible {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.player-controls {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
-  box-sizing: border-box;
-  opacity: 1;
-  visibility: visible;
-  transition:
-    opacity 0.3s ease,
-    visibility 0.3s ease;
-}
-
-.player-controls.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.player-controls.visible {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.left-controls {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.right-controls {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-button {
-  background: transparent;
-  border: none;
-  color: white;
-  cursor: pointer;
-  padding: 6px 8px;
-  border-radius: 6px;
-}
-
-button:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-button:focus {
-  outline: none;
-}
-
-input[type="range"] {
-  background: transparent;
-}
-
-.live-badge {
-  background: red;
-  color: white;
-  padding: 5px 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
 @media (max-width: 768px) {
   .video-player-container {
     width: 100%;
@@ -158,12 +50,5 @@ input[type="range"] {
     height: 100%;
     min-height: 0;
     display: block;
-  }
-  .stream-title {
-    font-size: 1.2rem;
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    padding: 5px 5px;
   }
 }
