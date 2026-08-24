@@ -10,7 +10,7 @@ Aplicación web alterna para transmisiones en vivo ligadas a Twitch, con informa
 
 * **Lectura de API twitch para credenciales**
 
-    Aquí es ejecutar un [servicio de vídeo](https://github.com/Hitman365XD/stream-server), que envía tanto el archivo multimedia y la información del canal. Deben ser colocados en un .env, que tendrá la misma estructura de `.env.example` (VITE_STREAM_URL recibe el `/hls/stream.m3u8` y VITE_RESPONSE_URL el `/stream-data`).
+    Aquí es ejecutar un [servicio de vídeo](https://github.com/Hitman365XD/stream-server), que envía tanto el archivo multimedia y la información del canal. Deben ser colocados en un .env, que tendrá la misma estructura de `.env.example` (VITE_ID_VIDEO recibe el vídeo desde Ok.ru y VITE_DATA_URL el `/stream-data`).
 
     Para el dominio (VITE_TWITCH_PARENT), pueden usar su `localhost` o `streaming.local` con ip `127.0.0.1` (puede ser agregado en el archivo hosts de la ruta `C:\Windows\System32\drivers\etc\`).
 
