@@ -2,14 +2,16 @@ import config from "../config";
 import "./VideoPlayer.css";
 
 function VideoPlayer() {
+  const streamId = config.streamId;
+  
   return (
     <div className="video-player-container">
       <iframe
-        src={`https://live.vkvideo.ru/app/embed/${config.streamer}`}
+        src={`//ok.ru/videoembed/${streamId}?nochat=1`}
         frameborder="0"
-        allow="autoplay; fullscreen"
+        allow="autoplay"
         className="player-video"
-        allowfullscreen
+        allowFullScreen
       ></iframe>
     </div>
   );
