@@ -165,7 +165,7 @@ function App() {
     <div className={`app-container ${showChat ? "" : "chat-hidden"}`}>
       <div className="stream-section">
         {isLive ? (
-          <VideoPlayer title={title} />
+          <VideoPlayer />
         ) : (
           <div className="offline-container">Offline</div>
         )}

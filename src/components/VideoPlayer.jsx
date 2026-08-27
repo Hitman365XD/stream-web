@@ -1,9 +1,9 @@
 import config from "../config";
 import "./VideoPlayer.css";
 
-function VideoPlayer({ title }) {
+function VideoPlayer() {
   const streamId = config.streamId;
-
+  
   return (
     <div className="video-player-container">
       <iframe
