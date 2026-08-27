@@ -18,7 +18,6 @@ import { CiStreamOn } from "react-icons/ci";
 import { SiStreamlabs, SiMyanimelist } from "react-icons/si";
 import config from "./config";
 import "./App.css";
-import TwitchPlayer from "./components/TwitchPlayer";
 
 function App() {
   const [viewers, setViewers] = useState(0);
@@ -173,9 +172,6 @@ function App() {
       </div>
 
       <div className={`chat-container ${showChat ? "" : "hidden"}`}>
-        <div className="twitch-player-wrapper">
-          <TwitchPlayer streamer = {channel} />
-        </div>
         <iframe
           src={`https://www.twitch.tv/embed/${channel}/chat?parent=${twitchParent}&darkpopout`}
           className="frame-container"
