@@ -419,12 +419,10 @@
   }
 
   .frame-container {
-    position: absolute;
-    inset: 0;
-    width: calc(100% / 0.9);
-    height: calc(100% / 0.9);
-    transform: scale(0.9);
+    transform: scale(0.8);
     transform-origin: top left;
+    width: 125%;
+    height: 125%;
   }
 
   .stream-section {
