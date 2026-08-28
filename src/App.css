@@ -237,6 +237,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 70%;
+  margin: 0 8px;
 }
 
 .right-controls {
@@ -484,10 +485,10 @@
     flex: 1 1 auto;
     text-align: center;
     overflow: hidden;
+    font-size: 14px;
     white-space: nowrap;
     text-overflow: ellipsis;
     max-width: calc(100% - 160px);
-    margin: 0 8px;
   }
 
   .views-container {
@@ -506,5 +507,15 @@
 
   .mobile-only {
     display: inline;
+  }
+}
+
+@media (max-height: 500px) {
+  .title-container {
+    font-size: 14px;
+  }
+
+  .views-icon {
+    display: none;
   }
 }
