@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import VideoPlayer from "./components/VideoPlayer";
+import TwitchPlayer from "./components/TwitchPlayer";
 import { FaEllipsisV, FaUser } from "react-icons/fa";
 import {
   FaTwitch,
@@ -12,7 +13,7 @@ import {
   FaGift,
   FaWallet,
   FaDiscord,
-  FaSpotify
+  FaSpotify,
 } from "react-icons/fa6";
 import { CiStreamOn } from "react-icons/ci";
 import { SiStreamlabs, SiMyanimelist } from "react-icons/si";
@@ -164,17 +165,19 @@ function App() {
   return (
     <div className={`app-container ${showChat ? "" : "chat-hidden"}`}>
       <div className="stream-section">
-        {isLive ? (
+        {/* {isLive ? (
           <VideoPlayer />
         ) : (
           <div className="offline-container">Offline</div>
-        )}
+        )} */}
+        <VideoPlayer />
       </div>
 
-      <div className={`chat-container ${showChat ? "" : "hidden"}`}>
+      <div className={`elements-container ${showChat ? "" : "hidden"}`}>
+        <TwitchPlayer channel={channel} />
         <iframe
           src={`https://www.twitch.tv/embed/${channel}/chat?parent=${twitchParent}&darkpopout`}
-          className="frame-container"
+          className="chat-container"
         ></iframe>
       </div>
 
