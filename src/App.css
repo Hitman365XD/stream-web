@@ -255,6 +255,15 @@
   font-weight: bold;
 }
 
+.change-container {
+  background: #0a6918;
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  height: 1rem;
+  font-weight: bold;
+}
+
 .elements-container.hidden {
   display: none;
 }
@@ -266,6 +275,19 @@
   border: none;
   display: block;
   box-sizing: border-box;
+}
+
+.change-toggle {
+  background-color: #0a6918;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 20px;
+  gap: 10px;
 }
 
 .chat-toggle {
@@ -417,6 +439,25 @@
     grid-column: 1;
     grid-row: 3;
     position: relative;
+    display: block;
+  }
+
+  .chat-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .app-container.chat-hidden .elements-container,
+  .app-container.chat-hidden .elements-container.hidden {
+    display: block;
+    height: 100%;
+  }
+
+  .app-container.chat-hidden .chat-container {
+    display: none;
   }
 
   .stream-section {

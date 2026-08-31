@@ -17,6 +17,26 @@
 .twitch-player-container iframe {
   display: block;
   width: 100% !important;
-  height: 100% !important;
+  height: auto !important;
+  aspect-ratio: 16 / 9;
   border: 0;
+}
+
+@media (max-width: 768px) {
+  .twitch-shell {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    border: 0;
+    overflow: visible;
+  }
+
+  .twitch-player,
+  .twitch-player-container iframe {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9;
+  }
 }

@@ -8,6 +8,7 @@ function TwitchPlayer({ channel }) {
 
   useEffect(() => {
     if (!channel) return;
+    var player = null;
 
     const script = document.createElement("script");
     script.src = "https://player.twitch.tv/js/embed/v1.js";
@@ -16,12 +17,12 @@ function TwitchPlayer({ channel }) {
     const loadPlayer = () => {
       if (!window.Twitch || !twitchPlayer.current) return;
 
-      var player = new window.Twitch.Player(twitchPlayer.current, {
+      player = new window.Twitch.Player(twitchPlayer.current, {
         channel: channel,
         parent: [parent],
         width: "100%",
         height: "100%",
-        autoplay: true
+        autoplay: true,
       });
       player.setVolume(0);
     };
@@ -39,11 +40,7 @@ function TwitchPlayer({ channel }) {
     };
   }, [channel]);
 
-  return (
-    <div className="twitch-shell">
-      <div ref={twitchPlayer} className="twitch-player-container" />
-    </div>
-  );
+  return <div ref={twitchPlayer} className="twitch-player-container" />;
 }
 
 export default TwitchPlayer;

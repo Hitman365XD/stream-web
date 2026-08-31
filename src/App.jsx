@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import VideoPlayer from "./components/VideoPlayer";
 import TwitchPlayer from "./components/TwitchPlayer";
 import { FaEllipsisV, FaUser } from "react-icons/fa";
+import { MdOutlinePublishedWithChanges } from "react-icons/md";
 import {
   FaTwitch,
   FaInstagram,
@@ -28,6 +29,7 @@ function App() {
   const [isLive, setIsLive] = useState();
   const [channel, setChannel] = useState("");
   const [showChat, setShowchat] = useState(true);
+  const [changeScreen, setChangeScreen] = useState(false);
   const [showChannelOptions, setShowChannelOptions] = useState(false);
   const [showMenuOptions, setshowMenuOptions] = useState(null);
   const channelOptionsRef = useRef(null);
@@ -165,16 +167,15 @@ function App() {
   return (
     <div className={`app-container ${showChat ? "" : "chat-hidden"}`}>
       <div className="stream-section">
-        {/* {isLive ? (
+        <div className="video-player-container">
           <VideoPlayer />
-        ) : (
-          <div className="offline-container">Offline</div>
-        )} */}
-        <VideoPlayer />
+        </div>
       </div>
 
       <div className={`elements-container ${showChat ? "" : "hidden"}`}>
-        <TwitchPlayer channel={channel} />
+        <div className="twitch-shell">
+          <TwitchPlayer channel={channel} />
+        </div>
         <iframe
           src={`https://www.twitch.tv/embed/${channel}/chat?parent=${twitchParent}&darkpopout`}
           className="chat-container"
@@ -365,6 +366,15 @@ function App() {
             </span>
             <span className="views-value"> {viewers}</span>
           </div>
+          {/* <button
+            className="change-toggle"
+            onClick={() => setChangeScreen(!changeScreen)}
+            title="Cambiar pantallas"
+          >
+            <span className="change-icon">
+              <MdOutlinePublishedWithChanges />
+            </span>
+          </button> */}
           <button
             className={`chat-toggle ${showChat ? "active" : ""}`}
             onClick={() => setShowchat(!showChat)}
