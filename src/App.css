@@ -15,7 +15,7 @@
   grid-template-columns: minmax(0, 1fr);
 }
 
-.chat-container {
+.elements-container {
   width: auto;
   background: #18181b;
   border-left: 1px solid #333;
@@ -27,6 +27,8 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 
 .stream-section {
@@ -106,6 +108,7 @@
 
 .channel-options-wrapper {
   position: relative;
+  z-index: 50;
 }
 
 .channel-options-button {
@@ -120,6 +123,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 2;
 }
 
 .channel-options-button:hover,
@@ -132,7 +137,7 @@
   position: absolute;
   left: 0;
   bottom: calc(100% + 8px);
-  z-index: 30;
+  z-index: 100;
   min-width: 140px;
   padding: 5px;
   border: 1px solid #3b3b44;
@@ -143,6 +148,7 @@
 
 .channel-options-backdrop {
   position: static;
+  z-index: 100;
 }
 
 .channel-options a,
@@ -196,6 +202,7 @@
   position: absolute;
   left: calc(100% + 6px);
   top: 0;
+  z-index: 110;
   min-width: 150px;
   padding: 6px;
   border: 1px solid #3b3b44;
@@ -255,17 +262,41 @@
   font-weight: bold;
 }
 
-.chat-container.hidden {
+.change-container {
+  background: #0a6918;
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  height: 1rem;
+  font-weight: bold;
+}
+
+.elements-container.hidden {
   display: none;
 }
 
-.frame-container {
+.chat-container {
   width: 100%;
   flex: 1 1 auto;
   min-height: 0;
   border: none;
   display: block;
   box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+.change-toggle {
+  background-color: #0a6918;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 20px;
+  gap: 10px;
 }
 
 .chat-toggle {
@@ -407,7 +438,7 @@
     grid-template-rows: auto 40px minmax(0, 1fr);
   }
 
-  .chat-container {
+  .elements-container {
     order: 3;
     margin: 0;
     height: 100%;
@@ -417,6 +448,25 @@
     grid-column: 1;
     grid-row: 3;
     position: relative;
+    display: block;
+  }
+
+  .chat-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .app-container.chat-hidden .elements-container,
+  .app-container.chat-hidden .elements-container.hidden {
+    display: block;
+    height: 100%;
+  }
+
+  .app-container.chat-hidden .chat-container {
+    display: none;
   }
 
   .stream-section {

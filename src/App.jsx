@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import VideoPlayer from "./components/VideoPlayer";
+import TwitchPlayer from "./components/TwitchPlayer";
 import { FaEllipsisV, FaUser } from "react-icons/fa";
+import { FaFileExcel } from "react-icons/fa";
+import { MdOutlinePublishedWithChanges } from "react-icons/md";
 import {
   FaTwitch,
   FaInstagram,
@@ -12,7 +15,7 @@ import {
   FaGift,
   FaWallet,
   FaDiscord,
-  FaSpotify
+  FaSpotify,
 } from "react-icons/fa6";
 import { CiStreamOn } from "react-icons/ci";
 import { SiStreamlabs, SiMyanimelist } from "react-icons/si";
@@ -27,6 +30,7 @@ function App() {
   const [isLive, setIsLive] = useState();
   const [channel, setChannel] = useState("");
   const [showChat, setShowchat] = useState(true);
+  const [changeScreen, setChangeScreen] = useState(false);
   const [showChannelOptions, setShowChannelOptions] = useState(false);
   const [showMenuOptions, setshowMenuOptions] = useState(null);
   const channelOptionsRef = useRef(null);
@@ -164,17 +168,22 @@ function App() {
   return (
     <div className={`app-container ${showChat ? "" : "chat-hidden"}`}>
       <div className="stream-section">
-        {isLive ? (
-          <VideoPlayer />
-        ) : (
-          <div className="offline-container">Offline</div>
-        )}
+        <div className="video-player-container">
+          {isLive ? (
+            <VideoPlayer />
+          ) : (
+            <div className="offline-container">Offline</div>
+          )}
+        </div>
       </div>
 
-      <div className={`chat-container ${showChat ? "" : "hidden"}`}>
+      <div className={`elements-container ${showChat ? "" : "hidden"}`}>
+        <div className="twitch-shell">
+          <TwitchPlayer channel={channel} />
+        </div>
         <iframe
           src={`https://www.twitch.tv/embed/${channel}/chat?parent=${twitchParent}&darkpopout`}
-          className="frame-container"
+          className="chat-container"
         ></iframe>
       </div>
 
@@ -315,6 +324,14 @@ function App() {
                       >
                         <FaGift aria-hidden="true" /> Sub de regalo
                       </a>
+                      <a
+                        href="https://docs.google.com/spreadsheets/d/1Q776gK6Q__aplbYvGGySEGOIcuWPdFLEXTW_GkKgev4/edit?gid=1900000001#gid=1900000001"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        role="menuitem"
+                      >
+                        <FaFileExcel aria-hidden="true" /> Lista de animes
+                      </a>
                     </div>
                   </div>
                   <a
@@ -362,6 +379,15 @@ function App() {
             </span>
             <span className="views-value"> {viewers}</span>
           </div>
+          {/* <button
+            className="change-toggle"
+            onClick={() => setChangeScreen(!changeScreen)}
+            title="Cambiar pantallas"
+          >
+            <span className="change-icon">
+              <MdOutlinePublishedWithChanges />
+            </span>
+          </button> */}
           <button
             className={`chat-toggle ${showChat ? "active" : ""}`}
             onClick={() => setShowchat(!showChat)}
