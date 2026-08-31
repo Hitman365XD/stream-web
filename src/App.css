@@ -27,6 +27,8 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 
 .stream-section {
@@ -106,6 +108,7 @@
 
 .channel-options-wrapper {
   position: relative;
+  z-index: 50;
 }
 
 .channel-options-button {
@@ -120,6 +123,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 2;
 }
 
 .channel-options-button:hover,
@@ -132,7 +137,7 @@
   position: absolute;
   left: 0;
   bottom: calc(100% + 8px);
-  z-index: 30;
+  z-index: 100;
   min-width: 140px;
   padding: 5px;
   border: 1px solid #3b3b44;
@@ -143,6 +148,7 @@
 
 .channel-options-backdrop {
   position: static;
+  z-index: 100;
 }
 
 .channel-options a,
@@ -196,6 +202,7 @@
   position: absolute;
   left: calc(100% + 6px);
   top: 0;
+  z-index: 110;
   min-width: 150px;
   padding: 6px;
   border: 1px solid #3b3b44;
@@ -275,6 +282,8 @@
   border: none;
   display: block;
   box-sizing: border-box;
+  position: relative;
+  z-index: 1;
 }
 
 .change-toggle {

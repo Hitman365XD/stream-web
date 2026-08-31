@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import VideoPlayer from "./components/VideoPlayer";
 import TwitchPlayer from "./components/TwitchPlayer";
 import { FaEllipsisV, FaUser } from "react-icons/fa";
+import { FaFileExcel } from "react-icons/fa";
 import { MdOutlinePublishedWithChanges } from "react-icons/md";
 import {
   FaTwitch,
@@ -168,7 +169,11 @@ function App() {
     <div className={`app-container ${showChat ? "" : "chat-hidden"}`}>
       <div className="stream-section">
         <div className="video-player-container">
-          <VideoPlayer />
+          {isLive ? (
+            <VideoPlayer />
+          ) : (
+            <div className="offline-container">Offline</div>
+          )}
         </div>
       </div>
 
@@ -318,6 +323,14 @@ function App() {
                         role="menuitem"
                       >
                         <FaGift aria-hidden="true" /> Sub de regalo
+                      </a>
+                      <a
+                        href="https://docs.google.com/spreadsheets/d/1Q776gK6Q__aplbYvGGySEGOIcuWPdFLEXTW_GkKgev4/edit?gid=1900000001#gid=1900000001"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        role="menuitem"
+                      >
+                        <FaFileExcel aria-hidden="true" /> Lista de animes
                       </a>
                     </div>
                   </div>
