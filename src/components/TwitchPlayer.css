@@ -40,3 +40,9 @@
     aspect-ratio: 16 / 9;
   }
 }
+
+@media (max-height: 500px) {
+  .twitch-shell {
+    display: none;
+  }
+}
