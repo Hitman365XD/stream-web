@@ -30,7 +30,8 @@ function App() {
   const [isLive, setIsLive] = useState();
   const [channel, setChannel] = useState("");
   const [showChat, setShowchat] = useState(true);
-  const [changeScreen, setChangeScreen] = useState(false);
+  const [streamId, setStreamId] = useState("");
+  // const [changeScreen, setChangeScreen] = useState(false);
   const [showChannelOptions, setShowChannelOptions] = useState(false);
   const [showMenuOptions, setshowMenuOptions] = useState(null);
   const channelOptionsRef = useRef(null);
@@ -53,11 +54,12 @@ function App() {
       setTitle(streamData.title);
       setStreamer(streamData.streamer);
       setProfileImage(streamData.profileImage);
+      setStreamId(streamData.idvideo);
     };
     updateStream();
 
-    // Refresh de viewers cada 10 segundos
-    const interval = setInterval(updateStream, 10000);
+    // Refresh de datos cada minuto
+    const interval = setInterval(updateStream, 30000);
     return () => clearInterval(interval);
   }, []);
 
@@ -170,7 +172,7 @@ function App() {
       <div className="stream-section">
         <div className="video-player-container">
           {isLive ? (
-            <VideoPlayer />
+            <VideoPlayer streamId={streamId} />
           ) : (
             <div className="offline-container">Offline</div>
           )}
