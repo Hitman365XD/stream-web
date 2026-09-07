@@ -58,8 +58,8 @@ function App() {
     };
     updateStream();
 
-    // Refresh de datos cada minuto
-    const interval = setInterval(updateStream, 30000);
+    // Refresh de datos cada 20 segundos
+    const interval = setInterval(updateStream, 20000);
     return () => clearInterval(interval);
   }, []);
 
