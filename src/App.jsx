@@ -171,18 +171,15 @@ function App() {
     <div className={`app-container ${showChat ? "" : "chat-hidden"}`}>
       <div className="stream-section">
         <div className="video-player-container">
-          {isLive ? (
-            <VideoPlayer streamId={streamId} />
-          ) : (
-            <div className="offline-container">Offline</div>
-          )}
+          <VideoPlayer streamId={streamId} />
         </div>
       </div>
 
+      <div className="twitch-shell">
+        <TwitchPlayer channel={channel} />
+      </div>
+
       <div className={`elements-container ${showChat ? "" : "hidden"}`}>
-        <div className="twitch-shell">
-          <TwitchPlayer channel={channel} />
-        </div>
         <iframe
           src={`https://www.twitch.tv/embed/${channel}/chat?parent=${twitchParent}&darkpopout`}
           className="chat-container"
@@ -375,13 +372,7 @@ function App() {
         </div>
         <div className="title-container">{title}</div>
         <div className="right-controls">
-          <div className="views-container">
-            <span className="views-icon">
-              <FaUser />
-            </span>
-            <span className="views-value"> {viewers}</span>
-          </div>
-          {/* <button
+          <button
             className="change-toggle"
             onClick={() => setChangeScreen(!changeScreen)}
             title="Cambiar pantallas"
@@ -389,7 +380,13 @@ function App() {
             <span className="change-icon">
               <MdOutlinePublishedWithChanges />
             </span>
-          </button> */}
+          </button>
+          <div className="views-container">
+            <span className="views-icon">
+              <FaUser />
+            </span>
+            <span className="views-value"> {viewers}</span>
+          </div>
           <button
             className={`chat-toggle ${showChat ? "active" : ""}`}
             onClick={() => setShowchat(!showChat)}
