@@ -31,7 +31,7 @@ function App() {
   const [channel, setChannel] = useState("");
   const [showChat, setShowchat] = useState(true);
   const [streamId, setStreamId] = useState("");
-  // const [changeScreen, setChangeScreen] = useState(false);
+  const [changeScreen, setChangeScreen] = useState(false);
   const [showChannelOptions, setShowChannelOptions] = useState(false);
   const [showMenuOptions, setshowMenuOptions] = useState(null);
   const channelOptionsRef = useRef(null);
@@ -168,7 +168,11 @@ function App() {
       : config.twitchParent;
 
   return (
-    <div className={`app-container ${showChat ? "" : "chat-hidden"}`}>
+    <div
+      className={`app-container ${showChat ? "" : "chat-hidden"} ${
+        changeScreen ? "screens-swapped" : ""
+      }`}
+    >
       <div className="stream-section">
         <div className="video-player-container">
           <VideoPlayer streamId={streamId} />
@@ -376,6 +380,8 @@ function App() {
             className="change-toggle"
             onClick={() => setChangeScreen(!changeScreen)}
             title="Cambiar pantallas"
+            aria-label="Cambiar pantallas"
+            aria-pressed={changeScreen}
           >
             <span className="change-icon">
               <MdOutlinePublishedWithChanges />

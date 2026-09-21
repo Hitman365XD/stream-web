@@ -36,13 +36,9 @@
   background: #000;
 }
 
-@media (max-width: 900px), (orientation: landscape) and (max-height: 600px) {
+@media (max-width: 799px), (orientation: landscape) and (max-height: 500px) {
   .video-player-container {
-    width: 100%;
     height: 100%;
-    max-height: none;
-    flex: none;
-    justify-content: center;
   }
   .player-video {
     width: 100%;
