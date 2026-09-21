@@ -31,7 +31,7 @@ function App() {
   const [channel, setChannel] = useState("");
   const [showChat, setShowchat] = useState(true);
   const [streamId, setStreamId] = useState("");
-  // const [changeScreen, setChangeScreen] = useState(false);
+  const [changeScreen, setChangeScreen] = useState(false);
   const [showChannelOptions, setShowChannelOptions] = useState(false);
   const [showMenuOptions, setshowMenuOptions] = useState(null);
   const channelOptionsRef = useRef(null);
@@ -168,7 +168,11 @@ function App() {
       : config.twitchParent;
 
   return (
-    <div className={`app-container ${showChat ? "" : "chat-hidden"}`}>
+    <div
+      className={`app-container ${showChat ? "" : "chat-hidden"} ${
+        changeScreen ? "screens-swapped" : ""
+      }`}
+    >
       <div className="stream-section">
         <div className="video-player-container">
           {isLive ? (
@@ -179,10 +183,11 @@ function App() {
         </div>
       </div>
 
+      <div className="twitch-shell">
+        <TwitchPlayer channel={channel} />
+      </div>
+
       <div className={`elements-container ${showChat ? "" : "hidden"}`}>
-        <div className="twitch-shell">
-          <TwitchPlayer channel={channel} />
-        </div>
         <iframe
           src={`https://www.twitch.tv/embed/${channel}/chat?parent=${twitchParent}&darkpopout`}
           className="chat-container"
@@ -375,21 +380,23 @@ function App() {
         </div>
         <div className="title-container">{title}</div>
         <div className="right-controls">
+          <button
+            className="change-toggle"
+            onClick={() => setChangeScreen(!changeScreen)}
+            title="Cambiar pantallas"
+            aria-label="Cambiar pantallas"
+            aria-pressed={changeScreen}
+          >
+            <span className="change-icon">
+              <MdOutlinePublishedWithChanges />
+            </span>
+          </button>
           <div className="views-container">
             <span className="views-icon">
               <FaUser />
             </span>
             <span className="views-value"> {viewers}</span>
           </div>
-          {/* <button
-            className="change-toggle"
-            onClick={() => setChangeScreen(!changeScreen)}
-            title="Cambiar pantallas"
-          >
-            <span className="change-icon">
-              <MdOutlinePublishedWithChanges />
-            </span>
-          </button> */}
           <button
             className={`chat-toggle ${showChat ? "active" : ""}`}
             onClick={() => setShowchat(!showChat)}
