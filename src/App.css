@@ -513,12 +513,21 @@
   .app-container {
     grid-template-columns: minmax(0, 1fr) minmax(280px, 42vw);
     grid-template-rows: minmax(0, 1fr) auto;
-    grid-template-areas: "stream chat" "bottom-bar bottom-bar";
+    grid-template-areas: "stream twitch" "bottom-bar bottom-bar";
+  }
+
+  .app-container.screens-swapped {
+    grid-template-areas: "stream twitch" "bottom-bar bottom-bar";
   }
 
   .app-container.chat-hidden {
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr) auto;
-    grid-template-areas: "stream stream" "bottom-bar bottom-bar";
+    grid-template-areas: "stream" "bottom-bar";
+  }
+
+  .app-container.chat-hidden .twitch-shell {
+    display: none;
   }
 }
 
