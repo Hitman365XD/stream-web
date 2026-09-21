@@ -175,7 +175,11 @@ function App() {
     >
       <div className="stream-section">
         <div className="video-player-container">
-          <VideoPlayer streamId={streamId} />
+          {isLive ? (
+            <VideoPlayer streamId={streamId} />
+          ) : (
+            <div className="offline-container">Offline</div>
+          )}
         </div>
       </div>
 

@@ -11,7 +11,12 @@
 }
 
 .app-container.chat-hidden {
-  grid-template-areas: "stream twitch" "stream twitch" "bottom-bar bottom-bar";
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "stream" "stream" "bottom-bar";
+}
+
+.app-container.chat-hidden .twitch-shell {
+  display: none;
 }
 
 .app-container.screens-swapped {
@@ -19,11 +24,31 @@
 }
 
 .app-container.chat-hidden.screens-swapped {
-  grid-template-areas: "twitch stream" "twitch stream" "bottom-bar bottom-bar";
+  grid-template-areas: "stream" "stream" "bottom-bar";
 }
 
 .app-container > div {
   display: flex;
+}
+
+.offline-container {
+  color: gray;
+  font-size: 15px;
+  padding: 5px;
+  font-weight: bold;
+  border: 3px solid gray;
+  width: 70px;
+  height: 30px;
+  border-radius: 50px;
+  align-items: center;
+  display: flex;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  justify-content: center;
+  font-family:
+    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .stream-section,
@@ -56,7 +81,6 @@
 }
 
 .bottom-bar {
-  padding: 0 20px;
   color: white;
   grid-area: bottom-bar;
   justify-content: flex-start;
@@ -137,11 +161,6 @@
   border-radius: 8px;
   background: #24242a;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-}
-
-.channel-options-backdrop {
-  position: static;
-  z-index: 100;
 }
 
 .channel-options a,
@@ -238,7 +257,6 @@
   font-weight: bold;
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: none;
   margin: 0 8px;
   text-align: center;
   line-height: 1.2;
@@ -271,7 +289,6 @@
   justify-content: center;
   border-radius: 10px;
   font-size: 20px;
-  gap: 10px;
 }
 
 .chat-toggle {
@@ -352,14 +369,22 @@
     max-width: 100vw;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: minmax(280px, 42svh) auto minmax(0, 1fr);
-    grid-template-areas: "stream" "bottom-bar" "chat";
+    grid-template-areas: "stream" "bottom-bar" "twitch";
     gap: 10px;
     height: 100svh;
     padding: 0;
   }
 
+  .app-container.screens-swapped {
+    grid-template-areas: "stream" "bottom-bar" "twitch";
+  }
+
+  .app-container.chat-hidden .twitch-shell {
+    display: flex;
+  }
+
   .twitch-shell {
-    grid-area: chat;
+    grid-area: twitch;
     z-index: 0;
   }
 
@@ -374,6 +399,7 @@
   }
 
   .elements-container {
+    grid-area: twitch;
     min-height: 0;
     position: relative;
     z-index: 1;
@@ -384,6 +410,7 @@
     padding: 5px 10px;
   }
 
+  .profile-image,
   .change-toggle {
     display: none;
   }
@@ -429,7 +456,7 @@
 
   .app-container.chat-hidden {
     grid-template-rows: auto auto minmax(0, 1fr);
-    grid-template-areas: "stream" "bottom-bar" "chat";
+    grid-template-areas: "stream" "bottom-bar" "twitch";
   }
 
   .stream-section {
@@ -491,7 +518,7 @@
 
   .app-container.chat-hidden {
     grid-template-rows: minmax(0, 1fr) auto;
-    grid-template-areas: "stream chat" "bottom-bar bottom-bar";
+    grid-template-areas: "stream stream" "bottom-bar bottom-bar";
   }
 }
 
